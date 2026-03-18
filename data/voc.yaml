@@ -1,0 +1,18 @@
+#"""数据集源路径root、训练集、验证集、测试集地址"""
+#path: ../datasets/VOC     # 数据集源路径root dir
+train: # root下的训练集地址
+  - C:/Users/Administrator/Desktop/v3/VOCdevkit/images/train
+#  - images/train2007
+#  - images/val2012
+#  - images/val2007
+val: # root下的验证集地址
+  - C:/Users/Administrator/Desktop/v3/VOCdevkit/images/val
+test: # root下的测试集地址
+  - C:/Users/Administrator/Desktop/v3/VOCdevkit/images/val
+
+# Classes
+nc: 20  # 检测的类别数量
+names: ['aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat', 'chair', 'cow', 'diningtable', 'dog',
+        'horse', 'motorbike', 'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor']  # 检测的类别名，避免用中文
+
+
