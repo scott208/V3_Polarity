@@ -218,7 +218,12 @@ class ComputeLoss:
 
             # 添加
             a = t[:, 6].long()  # 锚点索引
-            indices.append((b, a, gj.clamp_(0, gain[3] - 1), gi.clamp_(0, gain[2] - 1)))  # 图像，锚点，网格索引
+            # indices.append((b, a, gj.clamp_(0, gain[3] - 1), gi.clamp_(0, gain[2] - 1)))  # 图像，锚点，网格索引
+            # indices.append((b, a, gj.clamp_(0, gain[3] - 1).long(), gi.clamp_(0, gain[2] - 1).long()))  # 图像，锚点，网格索引
+            # 修改为以下分步处理
+            gj = torch.clamp(gj, 0, gain[3]-1).round().to(device=targets.device, dtype=torch.int64)
+            gi = torch.clamp(gi, 0, gain[2]-1).round().to(device=targets.device, dtype=torch.int64)
+            indices.append((b, a, gj, gi))
             tbox.append(torch.cat((gxy - gij, gwh), 1))  # 盒子
             anch.append(anchors[a])  # 锚点
             tcls.append(c)  # 类别

@@ -573,7 +573,7 @@ def labels_to_class_weights(labels, nc=80):
         return torch.Tensor()
 
     labels = np.concatenate(labels, 0)  # 将所有标签合并成一个数组，形状为 (866643, 5)（例如 COCO 数据集）
-    classes = labels[:, 0].astype(np.int)  # 提取类别列，labels = [类别 xywh]
+    classes = labels[:, 0].astype(int)  # 提取类别列，labels = [类别 xywh]
     weights = np.bincount(classes, minlength=nc)  # 计算每个类别的出现次数
 
     # 前置网格点计数（用于 uCE 训练）
@@ -588,7 +588,7 @@ def labels_to_class_weights(labels, nc=80):
 
 def labels_to_image_weights(labels, nc=80, class_weights=np.ones(80)):
     # 根据类别权重和图像内容生成图像权重
-    class_counts = np.array([np.bincount(x[:, 0].astype(np.int), minlength=nc) for x in labels])
+    class_counts = np.array([np.bincount(x[:, 0].astype(int), minlength=nc) for x in labels])
     image_weights = (class_weights.reshape(1, nc) * class_counts).sum(1)
     # index = random.choices(range(n), weights=image_weights, k=1)  # 根据图像权重进行样本选择
     return image_weights  # 返回图像权重
